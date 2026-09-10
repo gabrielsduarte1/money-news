@@ -16,11 +16,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.moneynews.model.Quote
 import br.com.moneynews.ui.components.QuoteItem
 import br.com.moneynews.ui.theme.MoneyNewsTheme
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import android.util.Log
+import br.com.moneynews.network.RetrofitClient
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.awesomeApiService.getQuotes("USD-BRL")
+                Log.d("MoneyNews", response.toString())
+            } catch (e: Exception) {
+                Log.e("MoneyNews", "Erro ao buscar cotação: ${e.message}")
+            }
+        }
 
         val quotes = listOf(
             Quote(name = "Dólar comercial", code = "USD/BRL", value = "R$ 5,42", change = "+0,32%"),

@@ -21,6 +21,12 @@ fun QuoteItem(
     value: String,
     change: String
 ) {
+    val corDoTexto = if (change.startsWith("-")) {
+        Color(0xFFC62828)
+    }
+    else {
+        Color(0xFF2E7D32)
+    }
     Row(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -33,7 +39,7 @@ fun QuoteItem(
             horizontalAlignment = Alignment.End
         ) {
             Text(text = value)
-            Text(text = change, color = Color(0xFF2E7D32))
+            Text(text = change, color = corDoTexto)
         }
     }
 }

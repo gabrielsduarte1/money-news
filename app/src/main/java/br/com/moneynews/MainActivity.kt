@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.moneynews.ui.components.QuoteItem
 import br.com.moneynews.ui.theme.MoneyNewsTheme
@@ -30,19 +31,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             MoneyNewsTheme {
                 val viewModel: QuoteViewModel = viewModel()
-                val uiState by viewModel.uiState.collectAsState()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     if (uiState.isLoading) {
                         Box(
-                            modifier = Modifier.fillMaxSize().padding(innerPadding),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding),
                             contentAlignment = Alignment.Center
                         ) {
                             CircularProgressIndicator()
                         }
                     } else if (uiState.errorMessage != null) {
                         Box(
-                            modifier = Modifier.fillMaxSize().padding(innerPadding),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(text = uiState.errorMessage!!)

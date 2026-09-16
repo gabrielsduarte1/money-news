@@ -7,6 +7,7 @@ import br.com.moneynews.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class QuoteViewModel : ViewModel() {
@@ -20,8 +21,9 @@ class QuoteViewModel : ViewModel() {
 
     private fun buscarCotacoes() {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
-
+            _uiState.update {
+                it.copy(isLoading = true, errorMessage = null)
+            }
             try {
                 val response = RetrofitClient.awesomeApiService.getQuotes("USD-BRL,EUR-BRL")
                 val quotes = response.values.map { it.toQuote() }

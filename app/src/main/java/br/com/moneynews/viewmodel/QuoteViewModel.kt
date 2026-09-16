@@ -2,7 +2,6 @@ package br.com.moneynews.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.moneynews.model.Quote
 import br.com.moneynews.model.toQuote
 import br.com.moneynews.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +11,8 @@ import kotlinx.coroutines.launch
 
 class QuoteViewModel : ViewModel() {
 
-    private val _quotes = MutableStateFlow<List<Quote>>(emptyList())
-    val quotes: StateFlow<List<Quote>> = _quotes.asStateFlow()
+    private val _uiState = MutableStateFlow(QuoteUiState())
+    val uiState: StateFlow<QuoteUiState> = _uiState.asStateFlow()
 
     init {
         buscarCotacoes()
@@ -21,11 +20,17 @@ class QuoteViewModel : ViewModel() {
 
     private fun buscarCotacoes() {
         viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
+
             try {
                 val response = RetrofitClient.awesomeApiService.getQuotes("USD-BRL,EUR-BRL")
-                _quotes.value = response.values.map { it.toQuote() }
+                val quotes = response.values.map { it.toQuote() }
+                _uiState.value = _uiState.value.copy(quotes = quotes, isLoading = false)
             } catch (e: Exception) {
-
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    errorMessage = "Não foi possível carregar as cotações"
+                )
             }
         }
     }

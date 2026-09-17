@@ -6,12 +6,3 @@ data class Quote(
     val value: String,
     val change: String
 )
-
-fun QuoteResponse.toQuote(): Quote {
-    return Quote(
-        name = name,
-        code = "$code/$codein",
-        value = "R$ $bid",
-        change = if (pctChange.startsWith("-")) "$pctChange%" else "+$pctChange%"
-    )
-}

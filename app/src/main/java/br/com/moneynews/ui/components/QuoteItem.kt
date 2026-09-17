@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.moneynews.ui.theme.MoneyNewsTheme
 
 @Composable
@@ -23,23 +26,41 @@ fun QuoteItem(
 ) {
     val corDoTexto = if (change.startsWith("-")) {
         Color(0xFFC62828)
-    }
-    else {
+    } else {
         Color(0xFF2E7D32)
     }
+
     Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Text(text = name)
-            Text(text = code)
+            Text(
+                text = name,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = code,
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
         Column(
             horizontalAlignment = Alignment.End
         ) {
-            Text(text = value)
-            Text(text = change, color = corDoTexto)
+            Text(
+                text = value,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = change,
+                fontSize = 12.sp,
+                color = corDoTexto
+            )
         }
     }
 }

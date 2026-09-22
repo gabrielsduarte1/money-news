@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.moneynews.ui.theme.MoneyNewsTheme
+import androidx.compose.ui.res.stringResource
+import br.com.moneynews.R
 
 @Composable
 fun QuoteItem(
@@ -58,7 +60,7 @@ fun QuoteItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.StarBorder,
-                    contentDescription = if (isFavorite) "Remover dos favoritos" else "Adicionar aos favoritos",
+                    contentDescription = if (isFavorite) stringResource(R.string.quote_item_remove_favorite) else stringResource(R.string.quote_item_add_favorite),
                     tint = if (isFavorite) Color(0xFFBA7517) else MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
                 )

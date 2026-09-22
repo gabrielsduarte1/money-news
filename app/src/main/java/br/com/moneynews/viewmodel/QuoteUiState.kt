@@ -6,5 +6,4 @@ data class QuoteUiState(
     val quotes: List<Quote> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
-    val favoriteCodes: Set<String> = emptySet()
 )

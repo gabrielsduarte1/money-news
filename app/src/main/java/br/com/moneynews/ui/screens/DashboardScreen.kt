@@ -44,7 +44,7 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
                     code = quote.code,
                     value = quote.value,
                     change = quote.change,
-                    isFavorite = quote.code in uiState.favoriteCodes,
+                    isFavorite = quote.isFavorite,
                     onFavoriteClick = { viewModel.toggleFavorite(quote) }
                 )
                 HorizontalDivider()

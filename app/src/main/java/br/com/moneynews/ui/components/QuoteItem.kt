@@ -1,10 +1,16 @@
 package br.com.moneynews.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +28,9 @@ fun QuoteItem(
     name: String,
     code: String,
     value: String,
-    change: String
+    change: String,
+    isFavorite: Boolean = false,
+    onFavoriteClick: () -> Unit = {}
 ) {
     val corDoTexto = if (change.startsWith("-")) {
         Color(0xFFC62828)
@@ -33,20 +41,40 @@ fun QuoteItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(start = 4.dp, top = 8.dp, end = 16.dp, bottom = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
-            Text(
-                text = name,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = code,
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable(
+                        interactionSource = null,
+                        indication = null,
+                        onClick = onFavoriteClick
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.StarBorder,
+                    contentDescription = if (isFavorite) "Remover dos favoritos" else "Adicionar aos favoritos",
+                    tint = if (isFavorite) Color(0xFFBA7517) else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+            Column {
+                Text(
+                    text = name,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = code,
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
         Column(
             horizontalAlignment = Alignment.End
@@ -73,7 +101,8 @@ fun QuoteItemPreview() {
             name = "Dólar comercial",
             code = "USD/BRL",
             value = "R$ 5,42",
-            change = "+0,32%"
+            change = "+0,32%",
+            isFavorite = true
         )
     }
 }

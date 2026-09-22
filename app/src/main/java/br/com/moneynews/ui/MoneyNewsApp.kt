@@ -1,8 +1,6 @@
 package br.com.moneynews.ui
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -44,7 +42,7 @@ fun MoneyNewsApp() {
                     NavigationBarItem(
                         selected = currentRoute == screen.route,
                         onClick = { navController.navigate(screen.route) },
-                        icon = { Icon(imageVector = Icons.Default.Home, contentDescription = screen.label) },
+                        icon = { Icon(imageVector = screen.icon, contentDescription = screen.label) },
                         label = { Text(text = screen.label) }
                     )
                 }

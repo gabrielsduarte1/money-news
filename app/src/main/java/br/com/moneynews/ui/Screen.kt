@@ -1,8 +1,15 @@
 package br.com.moneynews.ui
 
-sealed class Screen(val route: String, val label: String) {
-    object Dashboard : Screen(route = "dashboard", label = "Painel")
-    object Favorites : Screen(route = "favorites", label = "Favoritos")
-    object Converter : Screen(route = "converter", label = "Conversor")
-    object News : Screen(route = "news", label = "Notícias")
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.SwapHoriz
+import androidx.compose.ui.graphics.vector.ImageVector
+
+sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
+    object Dashboard : Screen("dashboard", "Painel", Icons.Default.BarChart)
+    object Favorites : Screen("favorites", "Favoritos", Icons.Default.Star)
+    object Converter : Screen("converter", "Conversor", Icons.Default.SwapHoriz)
+    object News : Screen("news", "Notícias", Icons.Default.Article)
 }

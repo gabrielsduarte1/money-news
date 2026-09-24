@@ -31,7 +31,7 @@ fun MoneyNewsApp() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val currentScreen = items.find { it.route == currentRoute }
-    val title = if (currentScreen != null) stringResource(currentScreen.label) else stringResource(R.string.app_name)
+    val title = stringResource(currentScreen?.label ?: R.string.app_name)
 
     Scaffold(
         topBar = {

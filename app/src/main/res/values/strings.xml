@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Money News</string>
+    <string name="quote_item_add_favorite">Adicionar aos favoritos</string>
+    <string name="quote_item_remove_favorite">Remover dos favoritos</string>
+    <string name="dashboard_error_load_quotes">Não foi possível carregar as cotações</string>
     <string name="screen_dashboard">Painel</string>
     <string name="screen_favorites">Favoritos</string>
     <string name="screen_converter">Conversor</string>

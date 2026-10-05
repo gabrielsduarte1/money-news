@@ -7,19 +7,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import br.com.moneynews.model.Quote
 import br.com.moneynews.ui.components.QuoteItem
-import br.com.moneynews.viewmodel.QuoteViewModel
+import br.com.moneynews.viewmodel.QuoteUiState
 
 @Composable
-fun DashboardScreen(modifier: Modifier = Modifier) {
-    val viewModel: QuoteViewModel = viewModel()
-    val uiState by viewModel.uiState.collectAsState()
-
+fun DashboardScreen(
+    uiState: QuoteUiState,
+    onFavoriteClick: (Quote) -> Unit,
+    modifier: Modifier = Modifier
+) {
     when {
         uiState.isLoading -> {
             Box(
@@ -34,7 +33,7 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
                 modifier = modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = uiState.errorMessage!!)
+                Text(text = uiState.errorMessage)
             }
         }
         else -> {
@@ -46,7 +45,7 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
                         value = quote.value,
                         change = quote.change,
                         isFavorite = quote.isFavorite,
-                        onFavoriteClick = { viewModel.toggleFavorite(quote) }
+                        onFavoriteClick = { onFavoriteClick(quote) }
                     )
                 }
             }

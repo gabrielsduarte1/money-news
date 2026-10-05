@@ -9,9 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -21,11 +23,14 @@ import br.com.moneynews.ui.screens.ConverterScreen
 import br.com.moneynews.ui.screens.DashboardScreen
 import br.com.moneynews.ui.screens.FavoritesScreen
 import br.com.moneynews.ui.screens.NewsScreen
+import br.com.moneynews.viewmodel.QuoteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoneyNewsApp() {
     val navController = rememberNavController()
+    val viewModel: QuoteViewModel = viewModel()
+    val uiState by viewModel.uiState.collectAsState()
     val items = listOf(Screen.Dashboard, Screen.Favorites, Screen.Converter, Screen.News)
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -57,9 +62,22 @@ fun MoneyNewsApp() {
             startDestination = Screen.Dashboard.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Dashboard.route) { DashboardScreen() }
-            composable(Screen.Favorites.route) { FavoritesScreen() }
+            composable(Screen.Dashboard.route) {
+                DashboardScreen(
+                    uiState = uiState,
+                    onFavoriteClick = { quote -> viewModel.toggleFavorite(quote) }
+                )
+            }
+
+            composable(Screen.Favorites.route) {
+                FavoritesScreen(
+                    uiState = uiState,
+                    onFavoriteClick = { quote -> viewModel.toggleFavorite(quote) }
+                )
+            }
+
             composable(Screen.Converter.route) { ConverterScreen() }
+
             composable(Screen.News.route) { NewsScreen() }
         }
     }

@@ -7,4 +7,5 @@
     <string name="screen_favorites">Favoritos</string>
     <string name="screen_converter">Conversor</string>
     <string name="screen_news">Notícias</string>
+    <string name="favorites_empty_message">Toque na tela de um ativo para adicioná-lo aqui</string>
 </resources>

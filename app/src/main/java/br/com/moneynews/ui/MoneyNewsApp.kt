@@ -9,9 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -21,6 +23,7 @@ import br.com.moneynews.ui.screens.ConverterScreen
 import br.com.moneynews.ui.screens.DashboardScreen
 import br.com.moneynews.ui.screens.FavoritesScreen
 import br.com.moneynews.ui.screens.NewsScreen
+import br.com.moneynews.viewmodel.ConverterViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +62,18 @@ fun MoneyNewsApp() {
         ) {
             composable(Screen.Dashboard.route) { DashboardScreen() }
             composable(Screen.Favorites.route) { FavoritesScreen() }
-            composable(Screen.Converter.route) { ConverterScreen() }
+            composable(Screen.Converter.route) {
+                val converterViewModel: ConverterViewModel = viewModel()
+                val converterState by converterViewModel.uiState.collectAsState()
+
+                ConverterScreen(
+                    uiState = converterState,
+                    onAmountChange = converterViewModel::onAmountChange,
+                    onFromChange = converterViewModel::onFromCurrencyChange,
+                    onToChange = converterViewModel::onToCurrencyChange,
+                    onSwap = converterViewModel::onSwap
+                )
+            }
             composable(Screen.News.route) { NewsScreen() }
         }
     }

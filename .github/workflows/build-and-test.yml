@@ -1,4 +1,4 @@
-name: CI
+name: Build and Test
 
 on:
   pull_request:
@@ -24,8 +24,8 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build debug APK
-        run: ./gradlew assembleDebug
-
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug

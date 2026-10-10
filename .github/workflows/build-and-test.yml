@@ -3,11 +3,15 @@ name: Build and Test
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      AWESOME_API_KEY: ${{ secrets.AWESOME_API_KEY }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6

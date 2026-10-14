@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="converter_currency_brl">Real brasileiro</string>
+    <string name="converter_currency_usd">Dólar americano</string>
+    <string name="converter_currency_eur">Euro</string>
+    <string name="converter_error_load_rates">Não foi possível carregar as cotações</string>
+    <string name="converter_amount_label">Valor</string>
+    <string name="converter_result_empty">-</string>
+    <string name="converter_swap_description">Inverter moedas</string>
+</resources>
